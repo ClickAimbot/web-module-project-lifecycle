@@ -1,5 +1,7 @@
 import React from 'react'
 import axios from 'axios';
+
+import TodoList from './TodoList';
 const URL = 'http://localhost:9000/api/todos'
 
 export default class App extends React.Component {
@@ -19,6 +21,7 @@ export default class App extends React.Component {
       this.setState({ ...this.state, error: err.response.data.message })
     })
   }
+
   componentDidMount() {
     console.log('component did mount');
     this.fetchAllTodos()
@@ -31,14 +34,7 @@ export default class App extends React.Component {
   render() {
     return (
       <>
-      <div id="error">Error: {this.state.error}</div>
-        <h1>Things need taking care of!</h1>
-        <h2>Todos</h2>
-        {
-          this.state.todos.map(todo => {
-            return <div key={todo.id}>{todo.name}</div>
-          })
-        }
+        <TodoList fetchAllTodos={this.fetchAllTodos} />
       </>
     )
   }
